@@ -105,7 +105,7 @@ jobs:
           kyes: [frontend-build]
       - run:
           name: scan frontend vulnerabilty
-          command : |
+          command: |
             cd frontend
             npm install
             npm audit --audit-level=critical
@@ -119,7 +119,7 @@ jobs:
           kyes: [backend-build]
       - run:
           name: scan backend vulnerabilty
-          command : |
+          command: |
             cd backend
             npm install
             npm audit --audit-level=critical
