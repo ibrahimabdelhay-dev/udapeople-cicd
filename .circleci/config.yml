@@ -102,7 +102,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          kyes: [frontend-build]
+          keys: [frontend-build]
       - run:
           name: scan frontend vulnerabilty
           command: |
@@ -116,7 +116,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          kyes: [backend-build]
+          keys: [backend-build]
       - run:
           name: scan backend vulnerabilty
           command: |
