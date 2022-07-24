@@ -1,1 +1,7 @@
 public git repo : https://github.com/ibrahimabdelhay-dev/udapeople-cicd
+
+
+database-1.ckkgyer2t3tn.us-east-1.rds.amazonaws.com
+username:postgres
+password:Allah70410590
+database:demo
