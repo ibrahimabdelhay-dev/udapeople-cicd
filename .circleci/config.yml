@@ -132,13 +132,15 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      - image: amazon/aws-cli
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
-          name: install deps
+          name: install awscli
           command: |
-            yum install -y tar gizp
+            sudo apt-get update 
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
       - run:
           name: Ensure back-end infrastructure exists
           command: |
