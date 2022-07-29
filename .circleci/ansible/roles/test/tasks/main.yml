@@ -1,0 +1,4 @@
+---
+- name: test task
+  shell: |
+    echo "hello world" > test.txt
