@@ -19,6 +19,10 @@
       wait_for_connection:
         delay: 5
         timeout: 100
+            
+    - name: Write the new ec2 instance host key to known hosts
+      connection: local
+      shell: "ssh-keyscan -H {{ inventory_hostname }} >> ~/.ssh/known_hosts"
 
     - name: "install python for Ansible."
       become: true
