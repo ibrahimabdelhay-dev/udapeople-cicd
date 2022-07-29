@@ -300,6 +300,7 @@ jobs:
       - run:
           name: test ansible can connec to ec2 instance
           command: |
+            cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       # attach workspace
       # - attach_workspace:
