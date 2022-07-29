@@ -302,7 +302,8 @@ jobs:
       #     command: |
       #       cd .circleci/ansible
       #       ansible-playbook -i inventory.txt deploy-backend.yml
-      attach workspace
+      
+      # attach workspace
       - attach_workspace:
           at: ~/
       - restore_cache:
