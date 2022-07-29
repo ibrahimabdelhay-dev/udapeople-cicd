@@ -281,32 +281,58 @@ jobs:
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       # Here's where you will add some code to rollback on failure      
+      - destroy-environment
+      - revert-migrations
                     
-  # deploy-backend:
-  #   docker:
-  #     image: cimg/base:stable
-  #   steps:
-  #     # Checkout code from git
-  #     - checkout
-  #     - install-ansible
-  #     # Add ssh keys with fingerprint
-  #     - add_ssh_keys:
-  #         fingerprints:
-  #           - "6b:68:b5:91:33:25:f2:d8:3e:b7:92:78:0e:5e:0b:6b"
-  #     # attach workspace
-  #     - attach_workspace:
-  #         at: ~/
-  #     - restore_cache:
-  #       keys: ['frontend-deps']
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           # your code here
-  #     - run:
-  #         name: Deploy backend
-  #         command: |
-  #           # your code here
+  deploy-backend:
+    docker:
+      image: cimg/base:stable
+    steps:
+      # Checkout code from git
+      - checkout
+      - install-ansible
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints:
+            - "6b:68:b5:91:33:25:f2:d8:3e:b7:92:78:0e:5e:0b:6b"
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys: ['frontend-deps']
+      - run:
+          name: Install dependencies
+          command: |
+            cd backend
+            npm install
+      - run:
+          name: package backend
+          command: |
+            cd backend
+            npm install
+            npm run build
+
+            # Zip the directory
+            tar -czvf artifact.tar.gz dist/* package*
+
+            #copt the artifact 
+            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
+
+      - run:
+          name: Deploy backend
+          command: |
+
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
+
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
+      - destroy-environment
+      - revert-migrations
 
 #   smoke-test:
 #     docker:
@@ -392,8 +418,8 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend:
-      #     requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
