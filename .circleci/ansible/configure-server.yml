@@ -20,8 +20,16 @@
 
     - name: "install python for Ansible."
       become: true
-      raw: test -e /usr/bin/paython3 || apt -y update && apt install -y paython3
-      changed_when: false
+      when: python3_pyenv == None
+      package:
+        name:
+          - python3-pip
+          - python3-virtualenv
+          - python3-dev
+          - virtualenv
+        state: present
+      # raw: test -e /usr/bin/paython3 || apt -y update && apt install -y paython3
+      # changed_when: false
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
