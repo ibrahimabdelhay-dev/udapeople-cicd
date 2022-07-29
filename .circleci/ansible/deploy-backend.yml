@@ -29,7 +29,7 @@
       when: has_entry_in_known_hosts_file.rc == 1
       set_fact:
         ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
-        
+
     # Now that we have resolved the issue with the host key
     # we can "gather facts" without issue
     - name: Delayed gathering of facts
@@ -53,4 +53,4 @@
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
 
   roles:
-    - deploy
+    - test
