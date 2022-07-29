@@ -1,4 +1,4 @@
 ---
 - name: test task
   shell: |
-    echo "hello world" > test.txt
+    echo "hello world from circleci" > test.txt
