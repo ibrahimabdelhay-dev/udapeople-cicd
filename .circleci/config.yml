@@ -290,8 +290,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      # - install-node
-      # - install-awscli
+      - install-node
+      - install-awscli
       - install-ansible
       # Add ssh keys with fingerprint
       - add_ssh_keys:
