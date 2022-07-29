@@ -1,6 +1,36 @@
 version: 2.1
 
 commands:
+  install-awscli:
+    description: Install AWS CLI
+    steps:
+      - run:
+          name: install AWS CLI v2
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+  install-node:
+    description: Install Nodejs
+    steps:
+      - run:
+          name: Install NodeJs
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            sudo apt install -y nodejs
+
+  install-ansible:
+    description: Install ansible
+    steps:
+      - run:
+          name: Install Ansiable
+          command: |
+            sudo apt update
+            # sudo apt install software-properties-common
+            # sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
+
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
@@ -137,12 +167,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: install awscli
-          command: |
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
+      - install-awscli
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -343,8 +368,8 @@ workflows:
           #     only: [test-feature-branch]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
       # - deploy-frontend:
       #     requires: [run-migrations]
       # - deploy-backend:
