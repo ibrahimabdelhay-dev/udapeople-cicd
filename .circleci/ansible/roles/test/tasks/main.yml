@@ -2,3 +2,39 @@
 - name: test task
   shell: |
     echo "hello world from circleci" > test.txt
+
+- name: creates backend app dir
+  file:
+    path: "/home/{{ ansible_user }}/backend-app"
+    state: directory
+
+# - name: copy backend files
+#   copy:
+#     src: artifact.tar.gz
+#     dest: "/home/{{ ansible_user }}/artifact.tar.gz"
+
+- name: unarchive backend filesl
+  unarchive:
+    src: artifact.tar.gz
+    dest: "/home/{{ ansible_user }}/backend-app"
+
+- name: install node deps
+  shell: |
+    cd ~/backend-app
+    npm install
+
+# - name: run app using pm2
+#   shell: |
+#     cd ~/backend-app/dist
+#     pm2 stop default
+#     pm2 start main.js
+#   register: excute_node
+
+# - name: print messages
+#   debug:
+#     msg: "{{excute_node.stdout_lines}}"
+
+# - name: configure pm2 to start as a service
+#   become: true
+#   shell: |
+#     env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu

@@ -1,13 +1,13 @@
 ---
 - name: creates backend app dir
   file:
-    path: ~/backend-app
+    path: "/home/{{ ansible_user }}/backend-app"
     state: directory
 
-- name: unarchive backend files
+- name: unarchive backend filesl
   unarchive:
     src: artifact.tar.gz
-    dist: ~/backend-app
+    dest: "/home/{{ ansible_user }}/backend-app"
 
 - name: install node deps
   shell: |
