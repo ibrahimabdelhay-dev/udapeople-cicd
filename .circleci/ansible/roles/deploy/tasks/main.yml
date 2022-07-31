@@ -11,12 +11,12 @@
 
 - name: install node deps
   shell: |
-    cd ~/backend-app
+    cd /home/{{ ansible_user }}/backend-app
     npm install
 
 - name: run app using pm2
   shell: |
-    cd ~/backend-app/dist
+    cd /home/{{ ansible_user }}/backend-app/dist
     pm2 stop default
     pm2 start main.js
   register: excute_node
