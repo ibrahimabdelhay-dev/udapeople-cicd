@@ -323,11 +323,14 @@ jobs:
             # Zip the directory
             tar -czvf artifact.tar.gz dist/* package*
 
+            # go up for the project root directory
+            cd ..
+
             # make directory if not exists
             mkdir -p .circleci/ansible/roles/deploy/files
 
             # copy the artifact 
-            cp info.txt .circleci/ansible/roles/deploy/files
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
 
             ls .circleci/ansible/roles/deploy/files 
       - run:
