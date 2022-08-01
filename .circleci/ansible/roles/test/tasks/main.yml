@@ -3,11 +3,11 @@
   shell: |
     echo $(env) > test.txt
     
-- name: print env vars
-  shell: |
-    echo "print env vars"
-    printenv TYPEORM_HOST
-  register: excute_node
+# - name: print env vars
+#   shell: |
+#     echo "print env vars"
+#     printenv TYPEORM_HOST
+#   register: excute_node
 
 # - name: creates backend app dir
 #   file:
@@ -37,9 +37,9 @@
 #   register: excute_node
 
 
-- name: print messages
-  debug:
-    msg: "{{excute_node.stdout_lines}}"
+# - name: print messages
+#   debug:
+#     msg: "{{excute_node.stdout_lines}}"
 
 # - name: configure pm2 to start as a service
 #   become: true
