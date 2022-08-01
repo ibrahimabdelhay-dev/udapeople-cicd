@@ -14,6 +14,8 @@
   become: true
   shell: |
     curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+  async: 2100
+  poll: 0
 
 - name: "install nodejs 13"
   become: true
