@@ -5,6 +5,7 @@
     
 - name: print env vars
   shell: |
+    echo "print env vars"
     printenv TYPEORM_PORT
 
 # - name: creates backend app dir
