@@ -1,7 +1,7 @@
 ---
-# - name: test task
-#   shell: |
-#     echo $(env) > test.txt
+- name: test task
+  shell: |
+    echo $(env) > test.txt
 
 - name: creates backend app dir
   file:
@@ -19,10 +19,10 @@
     npm install
 
 
-# - name: create .env
-#   shell: |
-#     cd /home/{{ ansible_user }}/backend-app/dist
-#     echo "NODE_ENV=local VERSION=1 TYPEORM_CONNECTION=postgres TYPEORM_MIGRATIONS_DIR=./migrations TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js} TYPEORM_MIGRATIONS=./migrations/*.ts TYPEORM_HOST=database-1.ckkgyer2t3tn.us-east-1.rds.amazonaws.com TYPEORM_PORT=5532 TYPEORM_USERNAME=postgres TYPEORM_PASSWORD=Allah70410590 TYPEORM_DATABASE=demo" > .env
+- name: create .env
+  shell: |
+    cd /home/{{ ansible_user }}/backend-app/dist
+    echo "NODE_ENV=local VERSION=1 TYPEORM_CONNECTION=postgres TYPEORM_MIGRATIONS_DIR=./migrations TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js} TYPEORM_MIGRATIONS=./migrations/*.ts TYPEORM_HOST=database-1.ckkgyer2t3tn.us-east-1.rds.amazonaws.com TYPEORM_PORT=5432 TYPEORM_USERNAME=postgres TYPEORM_PASSWORD=Allah70410590 TYPEORM_DATABASE=demo" > .env
     
 
 - name: run app using pm2
