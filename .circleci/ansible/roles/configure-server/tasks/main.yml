@@ -10,19 +10,28 @@
   apt: 
     upgrade: yes
 
-- name: "add nodejs from nodesource."
-  become: true
-  shell: |
-    curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-  async: 2100
-  poll: 0
 
-- name: "install nodejs 13"
-  become: true
-  apt:
-    name: ["nodejs"]
-    state: "latest"
-    update_cache: yes
+- name: Install nvm
+  shell: >
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
+    creates=/home/{{ ansible_user }}/.nvm/nvm.sh
+
+- name: Install node and set version
+  shell: >
+    /bin/bash -c "source ~/.nvm/nvm.sh && nvm install 13.8.0 && nvm alias default 13.8.0"
+    creates=/home/{{ ansible_user }}/.nvm/alias
+
+# - name: "add nodejs from nodesource."
+#   become: true
+#   shell: |
+#     curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+
+# - name: "install nodejs 13"
+#   become: true
+#   apt:
+#     name: ["nodejs"]
+#     state: "latest"
+#     update_cache: yes
 
 - name: "install pm2 globally"
   npm:
