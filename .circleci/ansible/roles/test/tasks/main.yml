@@ -7,7 +7,7 @@
   shell: |
     echo "print env vars"
     printenv TYPEORM_PORT
-    register: excute_node
+  register: excute_node
 
 # - name: creates backend app dir
 #   file:
