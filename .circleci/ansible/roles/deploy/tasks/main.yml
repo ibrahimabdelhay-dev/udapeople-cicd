@@ -21,6 +21,11 @@
     pm2 start main.js
   register: excute_node
 
+
+- name: print env vars
+  shell: |
+    printenv TYPEORM_PORT
+
 - name: print messages
   debug:
     msg: "{{excute_node.stdout_lines}}"

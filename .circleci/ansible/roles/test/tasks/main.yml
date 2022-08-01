@@ -2,26 +2,30 @@
 - name: test task
   shell: |
     echo "hello world from circleci" > test.txt
-
-- name: creates backend app dir
-  file:
-    path: "/home/{{ ansible_user }}/backend-app"
-    state: directory
-
-# - name: copy backend files
-#   copy:
-#     src: artifact.tar.gz
-#     dest: "/home/{{ ansible_user }}/artifact.tar.gz"
-
-- name: unarchive backend filesl
-  unarchive:
-    src: artifact.tar.gz
-    dest: "/home/{{ ansible_user }}/backend-app"
-
-- name: install node deps
+    
+- name: print env vars
   shell: |
-    cd ~/backend-app
-    npm install
+    printenv TYPEORM_PORT
+
+# - name: creates backend app dir
+#   file:
+#     path: "/home/{{ ansible_user }}/backend-app"
+#     state: directory
+
+# # - name: copy backend files
+# #   copy:
+# #     src: artifact.tar.gz
+# #     dest: "/home/{{ ansible_user }}/artifact.tar.gz"
+
+# - name: unarchive backend filesl
+#   unarchive:
+#     src: artifact.tar.gz
+#     dest: "/home/{{ ansible_user }}/backend-app"
+
+# - name: install node deps
+#   shell: |
+#     cd ~/backend-app
+#     npm install
 
 # - name: run app using pm2
 #   shell: |
