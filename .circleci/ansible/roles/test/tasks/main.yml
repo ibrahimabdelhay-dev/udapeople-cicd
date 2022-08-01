@@ -1,19 +1,13 @@
 ---
 - name: test task
   shell: |
-    echo "hello world from circleci" > test.txt
+    echo $TYPEORM_HOST > test.txt
     
 - name: print env vars
   shell: |
     echo "print env vars"
-    printenv TYPEORM_PORT
-  register: excute_node
-    
-- name: print env vars 2
-  shell: |
-    echo "print env vars 2"
     printenv TYPEORM_HOST
-  register: some
+  register: excute_node
 
 # - name: creates backend app dir
 #   file:
@@ -42,8 +36,6 @@
 #     pm2 start main.js
 #   register: excute_node
 
-- debug:
-    msg: "{{some.stdout}}"
 
 - name: print messages
   debug:
