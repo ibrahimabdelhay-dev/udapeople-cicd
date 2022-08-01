@@ -8,6 +8,12 @@
     echo "print env vars"
     printenv TYPEORM_PORT
   register: excute_node
+    
+- name: print env vars 2
+  shell: |
+    echo "print env vars 2"
+    printenv TYPEORM_HOST
+  register: some
 
 # - name: creates backend app dir
 #   file:
@@ -35,6 +41,9 @@
 #     pm2 stop default
 #     pm2 start main.js
 #   register: excute_node
+
+- debug:
+    msg: "{{some.stdout}}"
 
 - name: print messages
   debug:
