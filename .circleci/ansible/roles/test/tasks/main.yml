@@ -1,7 +1,7 @@
 ---
 - name: test task
   shell: |
-    echo $TYPEORM_HOST > test.txt
+    echo $(env) > test.txt
     
 - name: print env vars
   shell: |
