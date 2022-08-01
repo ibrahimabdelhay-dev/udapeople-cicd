@@ -7,6 +7,7 @@
   shell: |
     echo "print env vars"
     printenv TYPEORM_PORT
+    register: excute_node
 
 # - name: creates backend app dir
 #   file:
@@ -35,9 +36,9 @@
 #     pm2 start main.js
 #   register: excute_node
 
-# - name: print messages
-#   debug:
-#     msg: "{{excute_node.stdout_lines}}"
+- name: print messages
+  debug:
+    msg: "{{excute_node.stdout_lines}}"
 
 # - name: configure pm2 to start as a service
 #   become: true
