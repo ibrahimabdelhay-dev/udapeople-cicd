@@ -31,15 +31,15 @@
     pm2 stop default
     pm2 start main.js
     pm2 describe main
-    cat /home/ubuntu/.pm2/logs/main-error.log
-    cat /home/ubuntu/.pm2/logs/main-out.log
+    # cat /home/ubuntu/.pm2/logs/main-error.log
+    # cat /home/ubuntu/.pm2/logs/main-out.log
   register: excute_node
 
 - name: print env vars
   shell: |
     pm2 describe main
-    cat /home/ubuntu/.pm2/logs/main-error.log
-    cat /home/ubuntu/.pm2/logs/main-out.log
+    # cat /home/ubuntu/.pm2/logs/main-error.log
+    # cat /home/ubuntu/.pm2/logs/main-out.log
   register: excute_node2
 
 - name: print messages
