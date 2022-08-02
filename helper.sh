@@ -1,9 +1,1 @@
-aws s3 rm s3://udapeople-2ae2b53 --recursive
-aws s3 rm s3://udapeople-3968fca --recursive
-aws s3 rm s3://udapeople-ca049e2 --recursive
-aws s3 rm s3://udapeople-ff6fc32 --recursive
-aws s3 rm s3://udapeople-59a23cd --recursive
-aws s3 rm s3://udapeople-eb8bdce --recursive
-aws s3 rm s3://udapeople-d5d3174 --recursive
-aws s3 rm s3://udapeople-f21e9b2 --recursive
-aws s3 rm s3://udapeople-d3dce5b --recursive
+aws s3 rm s3://udapeople-6267e18 --recursive
