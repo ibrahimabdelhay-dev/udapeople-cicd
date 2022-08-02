@@ -421,11 +421,18 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-            # Change the initial stack name, as applicable to you
+
+            # First grap the previous stack/workflow id
+            export OldWorkflowID=$(aws cloudformation \
+              list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+              --no-paginate --output text)
+            echo OldWorkflowID: "${OldWorkflowID}"
+          
+            # Second run the deployment code
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --stack-name InitialStack \
-              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" Region="${AWS_DEFAULT_REGION}"\
+              --parameter-overrides PreviousWorkflowID="${OldWorkflowID}" WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" Region="${AWS_DEFAULT_REGION}"\
               --tags project=udapeople
       # Here's where you will add some code to rollback on failure  
       - destroy-environment
@@ -440,23 +447,17 @@ jobs:
         - install-awscli
         - install-node
         - run:
-            name: Get old stack workflow id
+            name: Fetch and Remove the old stack
             command: |
               # Fetch the Old workflow ID
               export OldWorkflowID=$(aws cloudformation \
-                list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+                list-exports --query "Exports[?Name==\`PreviousWorkflowID\`].Value" \
                 --no-paginate --output text)
-              echo OldWorkflowID: "${OldWorkflowID}"
-              echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
 
               # Fetch the stack names          
               export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                 --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
-              
-              echo Stack names: "${STACKS[@]}"   
-        - run:
-            name: Remove old stacks and files
-            command: |
+
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
                 aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive

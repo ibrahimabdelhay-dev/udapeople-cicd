@@ -5,6 +5,9 @@ Parameters:
   WorkflowID:
     Description: Unique identifier.
     Type: String
+  PreviousWorkflowID:
+    Description: Previous Workflow identifier (will be used to cleanup the previous stack).
+    Type: String
   Region:
     Description: AWS Region.
     Type: String
@@ -35,8 +38,15 @@ Resources:
           ViewerProtocolPolicy: allow-all
 
 Outputs:
+
   WorkflowID:
     Value: !Sub ${WorkflowID}
-    Description: URL for website hosted on S3
+    Description: workflow id
     Export:
       Name: WorkflowID
+
+  PreviousWorkflowID:
+    Value: !Sub ${PreviousWorkflowID}
+    Description:  previous workflow id
+    Export:
+      Name: PreviousWorkflowID
