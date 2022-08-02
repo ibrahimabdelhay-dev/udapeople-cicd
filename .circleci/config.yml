@@ -377,7 +377,7 @@ jobs:
       - run:
           name: fake Backend smoke test.
           command: |
-            if curl "http://44.203.94.90:3030/api/status" | grep "ok"
+            if curl "http://44.203.94.90:3030/api/statuss" | grep "ok"
             then
                 exit 0
             else
