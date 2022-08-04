@@ -1,8 +1,0 @@
-public git repo : https://github.com/ibrahimabdelhay-dev/udapeople-cicd
-
-
-URL02/s3 bucket URL : database-1.ckkgyer2t3tn.us-east-1.rds.amazonaws.com
-
-URL03/cloudfront url : d3ekjmgyw4r9sx.cloudfront.net	
-
-URL04/backend status : https://<Public-IP>:3030/api/status
